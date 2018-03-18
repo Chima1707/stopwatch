@@ -2,6 +2,11 @@ const defaultState = {possibleActions: ['start'],
   timer: {mainTime: 0, lapTime: 0, started: false},
   lapses: []}
 
+/**
+    * handles tick events, increment timers if timer has started or ignore if timer is off.
+    * @param {Object} timer - timer object.
+    * @returns {Object} = timer object.
+**/
 export const handleTick = (timer) => {
   if (timer.started) {
     return {...timer, mainTime: timer.mainTime + 100, lapTime: timer.lapTime + 100}
@@ -9,20 +14,67 @@ export const handleTick = (timer) => {
   return timer
 }
 
+/**
+    * starts timer.
+    * @param {Object} timer - timer object.
+    * @returns {Object} = timer object.
+**/
 export const startTimer = (timer) => ({...timer, started: true})
+/**
+    * resume stopped timer.
+    * @param {Object} timer - timer object.
+    * @returns {Object} = timer object.
+**/
 export const resumeTimer = (timer) => ({...timer, lapTime: 0, started: true})
+
+/**
+    * lap timer.
+    * @param {Object} timer - timer object.
+    * @returns {Object} = timer object.
+**/
 export const lapTimer = (timer) => ({...timer, lapTime: 0, started: true})
+/**
+    * stops timer.
+    * @param {Object} timer - timer object.
+    * @returns {Object} = timer object.
+**/
 export const stopTimer = (timer) => ({...timer, started: false})
+/**
+    * reset timer.
+    * @param {Object} timer - timer object.
+    * @returns {Object} = timer object.
+**/
 export const resetTimer = () => ({mainTime: 0, lapTime: 0, started: false})
+
+/**
+    * clears lapses list.
+    * @returns {Array} = lapses.
+**/
 export const clearLapses = () => []
+
+/**
+    * add a new lapses.
+    * @returns {Array} = lapses.
+**/
 export const addToLapses = (lapses, lapTime, mainTime) => {
   if (lapses.length === 10) {
     lapses.shift()
   }
   return [...lapses, {mainTime, lapTime, id: getLapId()}]
 }
+
+/**
+    * get unique Id for a new lap.
+    * @returns {Number} = lapses.
+**/
 export const getLapId = () => new Date().getTime()
 
+/**
+    * stopwatch reducer.
+    * @param {Object} state - previous state.
+    * @param {Object} action - action.
+    * @returns {Object} = new state.
+**/
 const stopWatch = (state = defaultState, action) => {
   switch (action.type) {
     case 'START':
