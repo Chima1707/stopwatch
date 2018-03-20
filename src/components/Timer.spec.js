@@ -12,19 +12,19 @@ function setup(main = false, timeElapsed = 0) {
   )
 
   return {
-    actions: actions,
     div: component.find('div')
   }
 }
 
 describe('Timer component', () => {
-  it('should display timeElapsed', () => {
+  it('should display small sized timer', () => {
     const { div } = setup()
     expect(div.text()).toEqual('00:00.00')
     expect(div.prop('className')).toEqual('time')
   })
-  it('should display large timeElapsed', () => {
+  it('should display large sized timer', () => {
     const { div } = setup(true)
+    expect(div.text()).toEqual('00:00.00')
     expect(div.prop('className')).toEqual('time main')
   })
 })

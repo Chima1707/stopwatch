@@ -1,7 +1,7 @@
 import stopWatch from './stopWatch'
 
 describe('stopWatch reducer', () => {
-  it('should handle initial state: timer is off, start action enabled, lapses is empty', () => {
+  it('should handle initial state: timer is off, only start action is enabled, lapses is empty', () => {
     const defaultState = {possibleActions: ['start'],
       timer: {mainTime: 0, lapTime: 0, started: false},
       lapses: []}
@@ -10,7 +10,7 @@ describe('stopWatch reducer', () => {
     ).toEqual(defaultState)
   })
 
-  it('should handle START action: start timer, stop and lap actions enabled', () => {
+  it('should handle START action: starts timer, only stop and lap actions enabled', () => {
     const state = {possibleActions: ['start'],
       timer: {mainTime: 0, lapTime: 0, started: false},
       lapses: []}
@@ -22,7 +22,7 @@ describe('stopWatch reducer', () => {
     ).toEqual(afterStartState)
   })
 
-  it('should handle STOP action: stop timer, add a new lap, resume and reset actions enabled', () => {
+  it('should handle STOP action: stop timer, add a new lap, only resume and reset actions enabled', () => {
     const startedState = {possibleActions: ['stop', 'lap'],
       timer: {mainTime: 100000, lapTime: 100000, started: true},
       lapses: []}
@@ -32,7 +32,7 @@ describe('stopWatch reducer', () => {
     expect(newState.lapses.length).toEqual(1)
   })
 
-  it('should handle RESET action: stop and reset timer, clear lapses, start action enabled', () => {
+  it('should handle RESET action: stop and reset timer, clear lapses, only start action is enabled', () => {
     const stopedState = {possibleActions: ['resume', 'reset'],
       timer: {mainTime: 100000, lapTime: 100000, started: false},
       lapses: [{id: 123464674, mainTime: 100000, lapTime: 100000}]}
@@ -42,7 +42,7 @@ describe('stopWatch reducer', () => {
     expect(newState.lapses.length).toEqual(0)
   })
 
-  it('should handle RESUME action: start timer, add a new lap, stop and lap actions are enabled, ', () => {
+  it('should handle RESUME action: start timer, add a new lap, only stop and lap actions are enabled, ', () => {
     const stopedState = {possibleActions: ['resume', 'reset'],
       timer: {mainTime: 100000, lapTime: 100000, started: false},
       lapses: [{id: 123464674, mainTime: 100000, lapTime: 100000}]}
@@ -52,7 +52,7 @@ describe('stopWatch reducer', () => {
     expect(newState.lapses.length).toEqual(1)
   })
 
-  it('should handle LAP action: reset lap time, add a new lap, stop and lap actions are enabled, ', () => {
+  it('should handle LAP action: reset lap time, add a new lap, only stop and lap actions are enabled, ', () => {
     const startedState = {possibleActions: ['stop', 'lap'],
       timer: {mainTime: 100000, lapTime: 100000, started: true},
       lapses: []}
@@ -62,7 +62,7 @@ describe('stopWatch reducer', () => {
     expect(newState.lapses.length).toEqual(1)
   })
 
-  it('should handle TICK action: increment both timers by 100 if timer is running or just ignore if timer is not running', () => {
+  it('should handle TICK action: increment both timers by 100 if timers are running or just ignore if timers are not running', () => {
     const startedState = {possibleActions: ['stop', 'lap'],
       timer: {mainTime: 100000, lapTime: 100000, started: true},
       lapses: []}
@@ -81,7 +81,5 @@ describe('stopWatch reducer', () => {
     expect(newState.timer.lapTime).toEqual(stopedState.timer.lapTime)
     expect(newState.timer.started).toEqual(stopedState.timer.started)
     expect(newState.lapses).toEqual(stopedState.lapses)
-
- })
-
+  })
 })

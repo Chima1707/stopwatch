@@ -3,9 +3,9 @@ const defaultState = {possibleActions: ['start'],
   lapses: []}
 
 /**
-    * handles tick events, increment timers if timer has started or ignore if timer is off.
-    * @param {Object} timer - timer object.
-    * @returns {Object} = timer object.
+    * Handles tick events, increment timers if timer is started or ignore if timer is off.
+    * @param {Object} timer - Previous timer object.
+    * @returns {Object} = A new timer object if previous timer object is started or the previous timer object.
 **/
 export const handleTick = (timer) => {
   if (timer.started) {
@@ -15,65 +15,65 @@ export const handleTick = (timer) => {
 }
 
 /**
-    * starts timer.
-    * @param {Object} timer - timer object.
-    * @returns {Object} = timer object.
+    * Handles start timer.
+    * @param {Object} timer - Previous timer object.
+    * @returns {Object} = A new timer object.
 **/
 export const startTimer = (timer) => ({...timer, started: true})
 /**
-    * resume stopped timer.
-    * @param {Object} timer - timer object.
-    * @returns {Object} = timer object.
+    * Handles resume timer.
+    * @param {Object} timer - Previous timer object.
+    * @returns {Object} = A new timer object.
 **/
 export const resumeTimer = (timer) => ({...timer, lapTime: 0, started: true})
 
 /**
-    * lap timer.
-    * @param {Object} timer - timer object.
-    * @returns {Object} = timer object.
+    * Handles lap timer.
+    * @param {Object} timer - Previous timer object.
+    * @returns {Object} = A new timer object.
 **/
 export const lapTimer = (timer) => ({...timer, lapTime: 0, started: true})
 /**
-    * stops timer.
-    * @param {Object} timer - timer object.
-    * @returns {Object} = timer object.
+    * Handles stop timer.
+    * @param {Object} timer - Previous timer object.
+    * @returns {Object} = A new timer object.
 **/
 export const stopTimer = (timer) => ({...timer, started: false})
 /**
-    * reset timer.
-    * @param {Object} timer - timer object.
-    * @returns {Object} = timer object.
+    * Handles reset timer.
+    * @returns {Object} = A new timer object.
 **/
 export const resetTimer = () => ({mainTime: 0, lapTime: 0, started: false})
 
 /**
-    * clears lapses list.
-    * @returns {Array} = lapses.
+    * Get new empty list of lapses.
+    * @returns {Array} = Empty list of lapses.
 **/
 export const clearLapses = () => []
 
 /**
-    * add a new lapses.
-    * @returns {Array} = lapses.
+    * Handles creation and addition of a new lap to list of lapses.
+    * Should remove the first lap before adding a new lap if lapses is greater than or equal to 5
+    * @returns {Array} = A new array of lapses.
 **/
 export const addToLapses = (lapses, lapTime, mainTime) => {
-  if (lapses.length === 10) {
+  if (lapses.length >= 5) {
     lapses.shift()
   }
   return [...lapses, {mainTime, lapTime, id: getLapId()}]
 }
 
 /**
-    * get unique Id for a new lap.
-    * @returns {Number} = lapses.
+    * Get unique Id for a new lap.
+    * @returns {Number} = unique Id.
 **/
 export const getLapId = () => new Date().getTime()
 
 /**
-    * stopwatch reducer.
-    * @param {Object} state - previous state.
-    * @param {Object} action - action.
-    * @returns {Object} = new state.
+    * The stopwatch reducer.
+    * @param {Object} state - Previous state.
+    * @param {Object} action - Action.
+    * @returns {Object} = A new state.
 **/
 const stopWatch = (state = defaultState, action) => {
   switch (action.type) {

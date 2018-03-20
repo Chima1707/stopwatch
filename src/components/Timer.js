@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 const formatElapsedTime = require('format-elapsed-time')
 
-const Timer = ({ timeElapsed, main }) => (
+const Timer = ({ timeElapsed, main = false }) => (
   <div className={main ? 'time main' : 'time'}>
     {formatElapsedTime(timeElapsed)}
   </div>

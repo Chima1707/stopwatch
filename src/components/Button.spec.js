@@ -19,7 +19,7 @@ function setup(text, show = true) {
 }
 
 describe('Button component', () => {
-  it('should display button with right label', () => {
+  it('should display button with correct label', () => {
     const { button } = setup('start')
     expect(button.text()).toEqual('start')
   })
@@ -30,7 +30,7 @@ describe('Button component', () => {
   })
 
   it('should call action on button click', () => {
-    const { button , actions} = setup('start')
+    const { button, actions } = setup('start')
     button.simulate('click')
     expect(actions.onClick).toBeCalled()
   })

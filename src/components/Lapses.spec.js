@@ -11,7 +11,6 @@ function setup(lapses = []) {
   )
 
   return {
-    actions: actions,
     div: component.find('div')
   }
 }
@@ -22,7 +21,7 @@ describe('Lapses component', () => {
     expect(div.length).toEqual(0)
   })
 
-  it('should display list of lapses', () => {
+  it('should display list of lapses in a table', () => {
     const { div } = setup([{id: 1, lapTime: 0, mainTime: 0}, {id: 2, lapTime: 1000000, mainTime: 1000000}])
     expect(div.find('table tr').length).toEqual(2)
 
